@@ -88,3 +88,26 @@ CREATE TABLE IF NOT EXISTS clients (
     secondPhoneNumber INT(10),
     mail VARCHAR(50)
 );
+
+-- Monde 3
+
+-- Monde 3-1
+ALTER TABLE language ADD versions VARCHAR(50);
+
+-- Monde 3-2
+ALTER TABLE frameworks ADD version INT(3);
+
+-- Monde 3-3
+ALTER TABLE language CHANGE versions version VARCHAR(50);
+
+-- Monde 3-4
+ALTER TABLE frameworks CHANGE nom framework VARCHAR(50);
+
+-- Monde 3-5
+ALTER TABLE frameworks MODIFY version VARCHAR(3);
+
+-- Monde 3-6
+ALTER TABLE clients DROP secondPhoneNumber;
+ALTER TABLE clients CHANGE firstFhoneNumber fhoneNumber VARCHAR(50);
+ALTER TABLE clients MODIFY fhoneNumber VARCHAR(10);
+ALTER TABLE clients ADD zipCode VARCHAR(5), ADD city VARCHAR(20);
