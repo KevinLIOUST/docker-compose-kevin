@@ -111,3 +111,35 @@ ALTER TABLE clients DROP secondPhoneNumber;
 ALTER TABLE clients CHANGE firstFhoneNumber fhoneNumber VARCHAR(50);
 ALTER TABLE clients MODIFY fhoneNumber VARCHAR(10);
 ALTER TABLE clients ADD zipCode VARCHAR(5), ADD city VARCHAR(20);
+
+--  Monde 4
+
+-- Monde 4-1
+INSERT INTO language (langue, version)
+    VALUES
+    ('JavaScript', 5),
+    ('PHP', 5.2),
+    ('PHP', 5.4),
+    ('HTML', 5.1),
+    ('JavaScript', 6),
+    ('JavaScript', 7),
+    ('JavaScript', 8),
+    ('PHP', 7);
+
+-- Monde 4-2
+DROP TABLE IF EXISTS frameworks;
+
+CREATE TABLE IF NOT EXISTS frameworks (
+    id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    framework VARCHAR(50),
+    version VARCHAR(10)
+);
+
+ALTER TABLE frameworks MODIFY version VARCHAR(10);
+
+INSERT INTO frameworks (framework, version)
+    VALUES
+    ('Symfony', 2.8),
+    ('Symfony', 3),
+    ('Jquery', 1.6),
+    ('Jquery', 2.10);
