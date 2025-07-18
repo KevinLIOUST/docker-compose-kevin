@@ -143,3 +143,48 @@ INSERT INTO frameworks (framework, version)
     ('Symfony', 3),
     ('Jquery', 1.6),
     ('Jquery', 2.10);
+
+-- Monde 5
+CREATE DATABASE IF NOT EXISTS sql_exercices DEFAULT CHARACTER SET utf8;
+
+-- Monde 5-1
+SELECT * FROM `lpecom_livres`;
+
+-- Monde 5-2
+SELECT titre FROM `lpecom_livres` WHERE prix > 20;
+
+-- Monde 5-3
+SELECT * FROM `lpecom_livres` ORDER BY prix DESC;
+
+-- Monde 5-4
+SELECT MAX(prix) FROM `lpecom_livres`;
+SELECT titre, prix FROM `lpecom_livres` ORDER BY prix DESC LIMIT 1;
+
+-- Monde 5-5
+SELECT titre, prix FROM `lpecom_livres` WHERE prix >= 20 AND prix <= 22 ORDER BY titre ASC;
+
+-- Monde 5-6
+SELECT titre FROM `lpecom_livres` WHERE isbn_10 != 2092589547 ORDER BY titre ASC;
+
+-- Monde 6
+
+-- Monde 6-1
+-- Afficher l'id des étudiants qui ont participés à au moins un examen.
+SELECT TOP 3 id FROM `lpecom_examens`;
+SELECT COUNT(id_etudiant) AS nbr_doublon, id_etudiant, matiere FROM `lpecom_examens` GROUP BY id_etudiant, matiere HAVING COUNT(id_etudiant) > 1 ORDER BY matiere;
+
+-- Monde 6-2
+
+-- Monde 6-3
+
+-- Monde 6-4
+
+-- Monde 6-5
+
+-- Monde 6-6
+
+-- Monde 6-7
+
+-- Monde 6-8
+
+-- Monde 6-9
