@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : db
--- Généré le : lun. 21 juil. 2025 à 15:01
+-- Généré le : mar. 22 juil. 2025 à 15:19
 -- Version du serveur : 8.0.42
 -- Version de PHP : 8.2.27
 
@@ -7222,7 +7222,7 @@ USE `training`;
 --
 -- Base de données : `videogames`
 --
-CREATE DATABASE IF NOT EXISTS `videogames` DEFAULT CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci;
+CREATE DATABASE IF NOT EXISTS `videogames` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
 USE `videogames`;
 
 -- --------------------------------------------------------
@@ -7268,13 +7268,12 @@ INSERT INTO `games` (`g_id`, `g_name`, `g_mode`, `g_published_at`, `g_pegi`, `s_
 (21, 'Battlefield 4', 'Solo / Multijoueur', '2012-12-31 23:00:00', 18, 16),
 (22, 'Tomb Raider', 'Solo / Multijoueur', '2014-12-31 23:00:00', 18, 17),
 (23, 'Assassin\'s Creed III', 'Solo / Multijoueur', '2011-12-31 23:00:00', 18, 6),
-(24, 'Counter-Strike : Global Offensive', 'Solo / Multijoueur', '2011-12-31 23:00:00', 18, 20),
+(24, 'Counter-Strike GO', 'Solo / Multijoueur', '2025-07-22 12:52:58', 18, 20),
 (25, 'Diablo III', 'Solo / Multijoueur', '2011-12-31 23:00:00', 16, 2),
 (26, 'Battlefield 3', 'Solo / Multijoueur', '2010-12-31 23:00:00', 18, 16),
 (27, 'Portal 2', 'Solo / Coopératif', '2010-12-31 23:00:00', 12, 20),
 (28, 'Beyond Good & Evil HD', 'Solo', '2010-12-31 23:00:00', 7, 6),
 (29, 'Assassin\'s Creed : Brotherhood', 'Solo / Multijoueur', '2009-12-31 23:00:00', 18, 6),
-(30, 'Naruto Shippuden Ultimate Ninja Storm 2', 'Solo / Multijoueur', '2009-12-31 23:00:00', 12, 6),
 (31, 'Red Dead Redemption', 'Solo / Multijoueur', '2009-12-31 23:00:00', 18, 5),
 (32, 'Grand Theft Auto : Episodes from Liberty City', 'Solo / Multijoueur', '2008-12-31 23:00:00', 18, 5),
 (33, 'League of Legends', 'Multijoueur', '2008-12-31 23:00:00', 12, 4),
@@ -7284,7 +7283,6 @@ INSERT INTO `games` (`g_id`, `g_name`, `g_mode`, `g_published_at`, `g_pegi`, `s_
 (37, 'Beyond Good & Evil HD', 'Solo', '2010-12-31 23:00:00', 7, 6),
 (38, 'Assassin\'s Creed : Brotherhood', 'Solo / Multijoueur', '2009-12-31 23:00:00', 18, 6),
 (39, 'Naruto Shippuden Ultimate Ninja Storm 2', 'Solo / Multijoueur', '2009-12-31 23:00:00', 12, 6),
-(40, 'Red Dead Redemption', 'Solo / Multijoueur', '2009-12-31 23:00:00', 18, 5),
 (41, 'Grand Theft Auto : Episodes from Liberty City', 'Solo / Multijoueur', '2008-12-31 23:00:00', 18, 5),
 (42, 'League of Legends', 'Multijoueur', '2008-12-31 23:00:00', 12, 4),
 (43, 'Naruto : The Broken Bond', 'Solo / Multijoueur', '2007-12-31 23:00:00', 18, 6),
@@ -7293,7 +7291,9 @@ INSERT INTO `games` (`g_id`, `g_name`, `g_mode`, `g_published_at`, `g_pegi`, `s_
 (46, 'Portal', 'Solo', '2006-12-31 23:00:00', 12, 20),
 (47, 'Age of Empires III', 'Solo / Multijoueur', '2004-12-31 23:00:00', 12, 18),
 (48, 'Need For Speed Underground 2', 'Solo / Multijoueur', '2003-12-31 23:00:00', 3, 11),
-(49, 'Cyberpunk 2077', 'Solo / Multijoueur', '2020-09-30 22:00:00', 18, 7);
+(49, 'Cyberpunk 2077', 'Solo', '2025-07-22 09:34:19', 18, 7),
+(50, 'Edens Zero', 'Solo', '2025-07-15 00:00:00', 16, 22),
+(51, 'FairyTail', 'Solo', '2020-07-31 00:00:00', 12, 22);
 
 -- --------------------------------------------------------
 
@@ -7362,7 +7362,6 @@ INSERT INTO `games_genres` (`genre_id`, `g_id`) VALUES
 (2, 29),
 (6, 29),
 (7, 29),
-(13, 30),
 (2, 31),
 (6, 31),
 (8, 31),
@@ -7381,9 +7380,9 @@ INSERT INTO `games_genres` (`genre_id`, `g_id`) VALUES
 (2, 37),
 (12, 37),
 (3, 38),
-(14, 39),
-(2, 40),
-(5, 40);
+(13, 39),
+(5, 50),
+(5, 51);
 
 -- --------------------------------------------------------
 
@@ -7525,10 +7524,6 @@ INSERT INTO `games_platforms` (`p_id`, `g_id`) VALUES
 (7, 29),
 (13, 29),
 (14, 29),
-(4, 30),
-(6, 30),
-(13, 30),
-(14, 30),
 (6, 31),
 (13, 31),
 (4, 32),
@@ -7554,7 +7549,15 @@ INSERT INTO `games_platforms` (`p_id`, `g_id`) VALUES
 (7, 49),
 (8, 49),
 (14, 49),
-(15, 49);
+(15, 49),
+(4, 50),
+(8, 50),
+(10, 50),
+(15, 50),
+(3, 51),
+(4, 51),
+(7, 51),
+(10, 51);
 
 -- --------------------------------------------------------
 
@@ -7656,7 +7659,8 @@ INSERT INTO `studios` (`s_id`, `s_name`, `s_nationality`) VALUES
 (18, 'Ensemble Studios', 'USA'),
 (19, 'Psyonix', 'USA'),
 (20, 'Valve Corporation', 'USA'),
-(21, 'CD Projekt', 'Pologne');
+(21, 'CD Projekt', 'Pologne'),
+(22, 'Gust', 'Japon');
 
 --
 -- Index pour les tables déchargées
@@ -7709,7 +7713,7 @@ ALTER TABLE `studios`
 -- AUTO_INCREMENT pour la table `games`
 --
 ALTER TABLE `games`
-  MODIFY `g_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+  MODIFY `g_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- AUTO_INCREMENT pour la table `genres`
@@ -7727,7 +7731,7 @@ ALTER TABLE `platforms`
 -- AUTO_INCREMENT pour la table `studios`
 --
 ALTER TABLE `studios`
-  MODIFY `s_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `s_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- Contraintes pour les tables déchargées
