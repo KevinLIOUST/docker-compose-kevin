@@ -173,7 +173,6 @@ CREATE TABLE playlists(
    FOREIGN KEY(utilisateur_id) REFERENCES utilisateurs(utilisateur_id)
 );
 
-DROP TABLE IF EXISTS genres;
 CREATE TABLE genres(
    genre_id INT AUTO_INCREMENT,
    genre_nom VARCHAR(35) NOT NULL,
@@ -188,7 +187,6 @@ CREATE TABLE playlist_have_music(
    FOREIGN KEY(playlist_id) REFERENCES playlists(playlist_id)
 );
 
-DROP TABLE IF EXISTS music_have_genres;
 CREATE TABLE music_have_genres(
    music_id INT,
    genre_id INT,
@@ -280,7 +278,6 @@ INSERT INTO genres (genre_nom) VALUES
 ('Epic / Battle Music');
 
 INSERT INTO playlist_have_music (music_id, playlist_id) VALUES
--- Playlist 1 : Anime Openings
 (2, 1),
 (7, 1),
 (8, 1),
@@ -289,8 +286,6 @@ INSERT INTO playlist_have_music (music_id, playlist_id) VALUES
 (13, 1),
 (14, 1),
 (16, 1),
-
--- Playlist 2 : Gaming Vibes
 (31, 2),
 (32, 2),
 (33, 2),
@@ -299,8 +294,6 @@ INSERT INTO playlist_have_music (music_id, playlist_id) VALUES
 (36, 2),
 (41, 2),
 (42, 2),
-
--- Playlist 3 : Vocaloid Hits
 (21, 3),
 (22, 3),
 (23, 3),
@@ -309,8 +302,6 @@ INSERT INTO playlist_have_music (music_id, playlist_id) VALUES
 (26, 3),
 (27, 3),
 (28, 3),
-
--- Playlist 4 : K-pop Favorites
 (1, 4),
 (2, 4),
 (3, 4),
@@ -386,3 +377,50 @@ INSERT INTO music_have_genres (music_id, genre_id) VALUES
 (49, 6),
 (50, 6),
 (50, 4);
+
+-- Afficher le nombre de chansons disponibles.
+
+SELECT COUNT(*) FROM titres_music;
+
+-- Afficher le nombre de playlists par utilisateur.
+
+SELECT COUNT(*) AS nb_playlists, utilisateur_prenom, utilisateur_nom FROM playlists
+INNER JOIN utilisateurs ON utilisateurs.utilisateur_id = playlists.utilisateur_id
+GROUP BY playlists.utilisateur_id;
+
+-- Afficher toutes les playlists avec :
+-- le nom de l’utilisateur
+-- le nom de la playlist
+-- le nom des chansons qui composent la playlist
+
+SELECT utilisateurs.utilisateur_prenom, utilisateurs.utilisateur_nom, playlists.playlist_nom, GROUP_CONCAT(titres_music.music_nom SEPARATOR ', ' ) AS 'Musiques de la playlist' FROM playlists
+INNER JOIN utilisateurs ON utilisateurs.utilisateur_id = playlists.utilisateur_id
+INNER JOIN playlist_have_music ON playlist_have_music.playlist_id = playlists.playlist_id
+INNER JOIN titres_music ON titres_music.music_id = playlist_have_music.music_id
+GROUP BY utilisateurs.utilisateur_nom, utilisateurs.utilisateur_prenom, playlists.playlist_nom;
+
+SELECT utilisateurs.utilisateur_prenom, utilisateurs.utilisateur_nom, playlists.playlist_nom, titres_music.music_nom FROM playlists
+INNER JOIN utilisateurs ON utilisateurs.utilisateur_id = playlists.utilisateur_id
+INNER JOIN playlist_have_music ON playlist_have_music.playlist_id = playlists.playlist_id
+INNER JOIN titres_music ON titres_music.music_id = playlist_have_music.music_id
+GROUP BY utilisateurs.utilisateur_nom, utilisateurs.utilisateur_prenom, playlists.playlist_nom, titres_music.music_nom;
+
+-- Afficher toutes les chansons avec les genres associés
+
+SELECT titres_music.music_nom, GROUP_CONCAT(genres.genre_nom SEPARATOR ', ' ) AS Genres FROM titres_music
+INNER JOIN music_have_genres ON music_have_genres.music_id = titres_music.music_id
+INNER JOIN genres ON genres.genre_id = music_have_genres.genre_id
+GROUP BY titres_music.music_nom
+ORDER BY Genres ASC;
+
+-- Afficher le classement des chansons les plus utilisées dans les playlists
+
+-- SELECT titres_music.music_nom, COUNT(titres_music.music_id) AS 'Nombre de fois utilisée dans les playlists' FROM titres_music
+-- INNER JOIN playlist_have_music ON playlist_have_music.music_id = titres_music.music_id;
+-- INNER JOIN playlists ON playlists.playlist_id = playlist_have_music.playlist_id
+-- GROUP BY titres_music.music_nom, titres_music.music_id;
+
+SELECT titres_music.music_nom, COUNT(playlist_have_music.music_id) AS `Nombre de fois utilisée dans les playlists` FROM titres_music
+INNER JOIN playlist_have_music ON playlist_have_music.music_id = titres_music.music_id
+GROUP BY playlist_have_music.music_id
+ORDER BY `Nombre de fois utilisée dans les playlists` DESC;
