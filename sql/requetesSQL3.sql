@@ -407,11 +407,11 @@ GROUP BY utilisateurs.utilisateur_nom, utilisateurs.utilisateur_prenom, playlist
 
 -- Afficher toutes les chansons avec les genres associés
 
-SELECT titres_music.music_nom, GROUP_CONCAT(genres.genre_nom SEPARATOR ', ' ) AS Genres FROM titres_music
+SELECT titres_music.music_nom, GROUP_CONCAT(genres.genre_nom SEPARATOR ', ' ) AS `Genres` FROM titres_music
 INNER JOIN music_have_genres ON music_have_genres.music_id = titres_music.music_id
 INNER JOIN genres ON genres.genre_id = music_have_genres.genre_id
 GROUP BY titres_music.music_nom
-ORDER BY Genres ASC;
+ORDER BY `Genres` ASC;
 
 -- Afficher le classement des chansons les plus utilisées dans les playlists
 
