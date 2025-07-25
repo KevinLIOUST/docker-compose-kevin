@@ -445,3 +445,157 @@ ORDER BY `Nombre de fois utilisée dans les playlists` DESC;
 
 -- Monde 8-3
 
+-- Création de la base de données
+
+CREATE DATABASE photos_albums CHARACTER SET utf8;
+
+-- Création des tables
+
+CREATE TABLE utilisateurs(
+   utilisateur_id INT AUTO_INCREMENT,
+   utilisateur_prenom VARCHAR(25) NOT NULL,
+   utilisateur_nom VARCHAR(35) NOT NULL,
+   utilisateur_mail VARCHAR(50) NOT NULL,
+   utilisateur_mdp VARCHAR(50) NOT NULL,
+   PRIMARY KEY(utilisateur_id)
+);
+
+CREATE TABLE albums(
+   album_id INT AUTO_INCREMENT,
+   album_nom VARCHAR(50) NOT NULL,
+   album_date_creation DATE NOT NULL,
+   PRIMARY KEY(album_id)
+);
+
+DROP TABLE IF EXISTS photos;
+CREATE TABLE photos(
+   photo_id INT AUTO_INCREMENT,
+   photo_desc VARCHAR(255),
+   photo_date_ajout DATE NOT NULL,
+   photo_url VARCHAR(255) NOT NULL,
+   PRIMARY KEY(photo_id)
+);
+
+CREATE TABLE util_create_album(
+   utilisateur_id INT,
+   album_id INT,
+   PRIMARY KEY(utilisateur_id, album_id),
+   FOREIGN KEY(utilisateur_id) REFERENCES utilisateurs(utilisateur_id),
+   FOREIGN KEY(album_id) REFERENCES albums(album_id)
+);
+
+DROP TABLE IF EXISTS photo_in_album;
+CREATE TABLE photo_in_album(
+   album_id INT,
+   photo_id INT,
+   PRIMARY KEY(album_id, photo_id),
+   FOREIGN KEY(album_id) REFERENCES albums(album_id),
+   FOREIGN KEY(photo_id) REFERENCES photos(photo_id)
+);
+
+CREATE TABLE album_share_with(
+   utilisateur_id INT,
+   album_id INT,
+   PRIMARY KEY(utilisateur_id, album_id),
+   FOREIGN KEY(utilisateur_id) REFERENCES utilisateurs(utilisateur_id),
+   FOREIGN KEY(album_id) REFERENCES albums(album_id)
+);
+
+-- Insertion des données (enregistrements de données)
+
+INSERT INTO utilisateurs (utilisateur_prenom, utilisateur_nom, utilisateur_mail, utilisateur_mdp) VALUES
+('Naruto', 'Uzumaki', 'naruto.uzumaki@konoha.jp', 'Rasengan123'),
+('Sakura', 'Haruno', 'sakura.haruno@konoha.jp', 'CherryBlossom2024'),
+('Luffy', 'Monkey D.', 'luffy.monkey@onepiece.jp', 'GomuGomuNo456'),
+('Ichigo', 'Kurosaki', 'ichigo.kurosaki@karakura.jp', 'Bankai789'),
+('Erza', 'Scarlet', 'erza.scarlet@fairytail.jp', 'TitaniaFT2025');
+
+INSERT INTO albums (album_nom, album_date_creation) VALUES
+('Souvenirs de Konoha', '2023-08-12'),
+('Aventures de Fairy Tail', '2024-01-27'),
+('Photos de la Team Straw Hat', '2022-11-03'),
+('Moments à l’Académie UA', '2023-05-20'),
+('Exploration de l’univers Pokémon', '2024-06-15'),
+('Instants à Karakura', '2023-09-10'),
+('Journée au Quartier Général des Exorcistes', '2022-12-01');
+
+INSERT INTO photos (photo_desc, photo_date_ajout, photo_url) VALUES
+('Demon Slayer style illustration jaune - CC0 public domain', '2025-07-25', 'https://publicdomainpictures.net/en/view-image.php?image=367801'),
+('Illustration japonaise traditionnelle', '2025-07-25', 'https://rawpixel.com/image/10193004'),
+('Jeune fille manga tenant un chat - style kawaii', '2025-07-25', 'https://rawpixel.com/image/6726226'),
+('Fille manga médiévale', '2025-07-25', 'https://i.pinimg.com/736x/7b/88/f4/7b88f4a76d57f1aab3a579107fc92f70.jpg'),
+('Alita Battle Angel', '2025-07-25', 'https://i.pinimg.com/736x/ec/ba/30/ecba3090a002904afd795601e3fbfb91.jpg'),
+('Illustration manga portrait femme cheveux bleus, CC0 public domain', '2025-07-25', 'https://publicdomainpictures.net/en/view-image.php?image=582042'),
+('Guerrière manga style samouraï avec épée - CC0 public domain', '2025-07-25', 'https://publicdomainpictures.net/en/view-image.php?image=88849'),
+('Figurine manga japonaise - photo HD CC0 public domain', '2025-07-25', 'https://publicdomainpictures.net/en/view-image.php?image=372485'),
+('Ciel dessiné style anime manga - illustration libre CC0', '2025-07-25', 'https://www.freepik.com/premium-ai-image/blue-sky-with-clouds-blue-sky-with-clouds-manga-anime-comic-style-digital-art-style-illustration-painting_37450056.htm'),
+('Fille manga Dragon Ball', '2025-07-25', 'https://i.pinimg.com/1200x/0a/e3/f0/0ae3f0ca49e857d92aa98a45169c3b00.jpg'),
+('5 filles manga avec la même tenue Japonaise', '2025-07-25', 'https://stock.adobe.com/images/anime-manga-girls-in-short-pleated-skirts-with-white-shirt-and-black-tie-fading-from-black-and-white-to-color-made-with-generative-ai/559687729'),
+('Personnage manga style robot/genre cyber - CC0 public domain', '2025-07-25', 'https://publicdomainpictures.net/en/view-image.php?image=372572'),
+('Personnage manga avec un casque rose sur sa tête', '2025-07-25', 'https://stock.adobe.com/images/anime-girl-with-headphones/604982252'),
+('Fille manga cyborg aux yeux bleus, cheuveux argentés et bleu ciel vers le bas en dégradé', '2025-07-25', 'https://stock.adobe.com/images/anime-women-cyborg/1452084975'),
+('Guilde FairyTail avec plein de personnages', '2025-07-25', 'https://i.pinimg.com/1200x/b2/74/97/b27497b2c160688be0de90a409ee56bc.jpg');
+
+INSERT INTO util_create_album (utilisateur_id, album_id) VALUES
+(1, 1),
+(2, 2),
+(3, 3),
+(4, 4),
+(5, 5),
+(1, 6),
+(3, 7);
+
+INSERT INTO photo_in_album (album_id, photo_id) VALUES
+(1, 1), (1, 2),
+(2, 3), (2, 4),
+(3, 5), (3, 6),
+(4, 7), (4, 8),
+(5, 9), (5, 10),
+(6, 11), (6, 12), (6, 13),
+(7, 14), (7, 15);
+
+INSERT INTO album_share_with (utilisateur_id, album_id) VALUES
+(2, 1),
+(3, 1),
+(1, 2),
+(5, 2),
+(2, 3),
+(1, 4),
+(3, 4),
+(4, 5),
+(2, 5),
+(1, 6),
+(5, 6),
+(2, 7),
+(4, 7);
+
+-- Requêtes
+
+-- Afficher toutes les photos avec le nom de l’album associé :
+-- Attention certaines photos ne font parties d’aucun album et il faudra tout de même les afficher.
+
+-- SELECT *, albums.album_nom FROM photos
+-- NATURAL JOIN albums
+-- INNER JOIN photo_in_album ON photo_in_album.album_id = albums.album_id;
+
+-- GROUP_CONCAT(photo_in_album.album_id SEPARATOR ', ') AS `Numéros des photos présentes`
+
+SELECT albums.album_nom, GROUP_CONCAT(photo_in_album.photo_id SEPARATOR ', ') AS `Photos présentes` FROM albums
+INNER JOIN photo_in_album ON photo_in_album.album_id = albums.album_id
+INNER JOIN photos ON photos.photo_id = photo_in_album.photo_id
+GROUP BY albums.album_nom;
+
+-- Afficher tous les albums avec leurs photos.
+
+SELECT albums.album_nom, GROUP_CONCAT(photo_in_album.photo_id SEPARATOR ', ') AS `Photos présentes` FROM albums
+INNER JOIN photo_in_album ON photo_in_album.album_id = albums.album_id
+INNER JOIN photos ON photos.photo_id = photo_in_album.photo_id
+GROUP BY albums.album_nom;
+
+-- Afficher tous les utilisateurs avec le nombre total d’albums créés.
+
+SELECT utilisateurs.utilisateur_prenom, utilisateurs.utilisateur_nom, COUNT(util_create_album.utilisateur_id) AS `Nombre d'albums crées` FROM utilisateurs
+INNER JOIN util_create_album ON util_create_album.utilisateur_id = utilisateurs.utilisateur_id
+GROUP BY utilisateurs.utilisateur_prenom, utilisateurs.utilisateur_nom;
+
+-- Afficher les noms des personnes avec qui les utilisateurs partagent leurs albums.
