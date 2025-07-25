@@ -195,6 +195,14 @@ CREATE TABLE music_have_genres(
    FOREIGN KEY(genre_id) REFERENCES genres(genre_id)
 );
 
+CREATE TABLE playlists_share_with(
+   utilisateur_id INT,
+   playlist_id INT,
+   PRIMARY KEY(utilisateur_id, playlist_id),
+   FOREIGN KEY(utilisateur_id) REFERENCES utilisateurs(utilisateur_id),
+   FOREIGN KEY(playlist_id) REFERENCES playlists(playlist_id)
+);
+
 -- Insertion des données
 
 INSERT INTO utilisateurs (utilisateur_prenom, utilisateur_nom) VALUES
@@ -378,7 +386,17 @@ INSERT INTO music_have_genres (music_id, genre_id) VALUES
 (50, 6),
 (50, 4);
 
--- Afficher le nombre de chansons disponibles.
+INSERT INTO playlists_share_with (utilisateur_id, playlist_id) VALUES
+(2, 1),
+(3, 1),
+(5, 1),
+(1, 2),
+(3, 2),
+(4, 3),
+(5, 3),
+(1, 4),
+(2, 4),
+(5, 4);
 
 SELECT COUNT(*) FROM titres_music;
 
@@ -424,3 +442,6 @@ SELECT titres_music.music_nom, COUNT(playlist_have_music.music_id) AS `Nombre de
 INNER JOIN playlist_have_music ON playlist_have_music.music_id = titres_music.music_id
 GROUP BY playlist_have_music.music_id
 ORDER BY `Nombre de fois utilisée dans les playlists` DESC;
+
+-- Monde 8-3
+
