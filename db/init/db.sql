@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : db
--- Généré le : jeu. 24 juil. 2025 à 09:56
+-- Généré le : dim. 27 juil. 2025 à 18:13
 -- Version du serveur : 8.0.42
 -- Version de PHP : 8.2.27
 
@@ -210,6 +210,393 @@ ALTER TABLE `DETAILS`
   ADD CONSTRAINT `DETAILS_ibfk_1` FOREIGN KEY (`id_art`) REFERENCES `ARTICLES` (`id_art`),
   ADD CONSTRAINT `DETAILS_ibfk_2` FOREIGN KEY (`id_com`) REFERENCES `COMMANDES` (`id_com`);
 --
+-- Base de données : `location_vehicules`
+--
+DROP DATABASE IF EXISTS `location_vehicules`;
+CREATE DATABASE IF NOT EXISTS `location_vehicules` DEFAULT CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci;
+USE `location_vehicules`;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `cautions`
+--
+
+DROP TABLE IF EXISTS `cautions`;
+CREATE TABLE IF NOT EXISTS `cautions` (
+  `caution_id` int NOT NULL AUTO_INCREMENT,
+  `caution_montant` int NOT NULL,
+  `caution_date` date NOT NULL,
+  `caution_statut` varchar(50) NOT NULL,
+  PRIMARY KEY (`caution_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3;
+
+--
+-- Déchargement des données de la table `cautions`
+--
+
+INSERT INTO `cautions` (`caution_id`, `caution_montant`, `caution_date`, `caution_statut`) VALUES
+(1, 500, '2025-07-01', 'Restituée'),
+(2, 800, '2025-07-10', 'Restituée'),
+(3, 600, '2025-07-18', 'En attente'),
+(4, 750, '2025-07-20', 'En attente'),
+(5, 700, '2025-07-05', 'Retenue');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `clients`
+--
+
+DROP TABLE IF EXISTS `clients`;
+CREATE TABLE IF NOT EXISTS `clients` (
+  `client_id` int NOT NULL AUTO_INCREMENT,
+  `client_prenom` varchar(30) NOT NULL,
+  `client_nom` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`client_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3;
+
+--
+-- Déchargement des données de la table `clients`
+--
+
+INSERT INTO `clients` (`client_id`, `client_prenom`, `client_nom`) VALUES
+(1, 'Naruto', 'Uzumaki'),
+(2, 'Hinata', 'Hyuga'),
+(3, 'Eren', 'Jaeger'),
+(4, 'Luffy', 'Monkey'),
+(5, 'Sakura', 'Haruno');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `client_do_location`
+--
+
+DROP TABLE IF EXISTS `client_do_location`;
+CREATE TABLE IF NOT EXISTS `client_do_location` (
+  `client_id` int NOT NULL,
+  `location_id` int NOT NULL,
+  PRIMARY KEY (`client_id`,`location_id`),
+  KEY `location_id` (`location_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+--
+-- Déchargement des données de la table `client_do_location`
+--
+
+INSERT INTO `client_do_location` (`client_id`, `location_id`) VALUES
+(1, 1),
+(2, 2),
+(3, 3),
+(4, 4),
+(5, 5);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `employes`
+--
+
+DROP TABLE IF EXISTS `employes`;
+CREATE TABLE IF NOT EXISTS `employes` (
+  `employe_id` int NOT NULL AUTO_INCREMENT,
+  `employe_prenom` varchar(30) NOT NULL,
+  `employe_nom` varchar(50) NOT NULL,
+  PRIMARY KEY (`employe_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
+
+--
+-- Déchargement des données de la table `employes`
+--
+
+INSERT INTO `employes` (`employe_id`, `employe_prenom`, `employe_nom`) VALUES
+(1, 'Levi', 'Ackerman'),
+(2, 'Nami', 'Arlong');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `employe_manage_locations`
+--
+
+DROP TABLE IF EXISTS `employe_manage_locations`;
+CREATE TABLE IF NOT EXISTS `employe_manage_locations` (
+  `employe_id` int NOT NULL,
+  `location_id` int NOT NULL,
+  PRIMARY KEY (`employe_id`,`location_id`),
+  KEY `location_id` (`location_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+--
+-- Déchargement des données de la table `employe_manage_locations`
+--
+
+INSERT INTO `employe_manage_locations` (`employe_id`, `location_id`) VALUES
+(1, 1),
+(2, 2),
+(1, 3),
+(2, 4),
+(1, 5);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `employe_manage_rapp`
+--
+
+DROP TABLE IF EXISTS `employe_manage_rapp`;
+CREATE TABLE IF NOT EXISTS `employe_manage_rapp` (
+  `employe_id` int NOT NULL,
+  `rapport_etat_id` int NOT NULL,
+  PRIMARY KEY (`employe_id`,`rapport_etat_id`),
+  KEY `rapport_etat_id` (`rapport_etat_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+--
+-- Déchargement des données de la table `employe_manage_rapp`
+--
+
+INSERT INTO `employe_manage_rapp` (`employe_id`, `rapport_etat_id`) VALUES
+(1, 1),
+(2, 2),
+(1, 3);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `employe_valide_ou_refuse_reser`
+--
+
+DROP TABLE IF EXISTS `employe_valide_ou_refuse_reser`;
+CREATE TABLE IF NOT EXISTS `employe_valide_ou_refuse_reser` (
+  `employe_id` int NOT NULL,
+  `reservation_id` int NOT NULL,
+  PRIMARY KEY (`employe_id`,`reservation_id`),
+  KEY `reservation_id` (`reservation_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+--
+-- Déchargement des données de la table `employe_valide_ou_refuse_reser`
+--
+
+INSERT INTO `employe_valide_ou_refuse_reser` (`employe_id`, `reservation_id`) VALUES
+(1, 1),
+(2, 2),
+(1, 3),
+(2, 4);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `locations`
+--
+
+DROP TABLE IF EXISTS `locations`;
+CREATE TABLE IF NOT EXISTS `locations` (
+  `location_id` int NOT NULL AUTO_INCREMENT,
+  `location_date_debut` date NOT NULL,
+  `location_date_fin` date NOT NULL,
+  `location_kil_depart` int NOT NULL,
+  `location_kil_retour` int DEFAULT NULL,
+  PRIMARY KEY (`location_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3;
+
+--
+-- Déchargement des données de la table `locations`
+--
+
+INSERT INTO `locations` (`location_id`, `location_date_debut`, `location_date_fin`, `location_kil_depart`, `location_kil_retour`) VALUES
+(1, '2025-07-01', '2025-07-05', 15200, 15640),
+(2, '2025-07-10', '2025-07-15', 8750, 9025),
+(3, '2025-06-20', '2025-06-25', 43500, 43980),
+(4, '2025-07-18', '2025-08-18', 23000, NULL),
+(5, '2025-07-05', '2025-07-09', 10120, 10450);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `location_generate_caution`
+--
+
+DROP TABLE IF EXISTS `location_generate_caution`;
+CREATE TABLE IF NOT EXISTS `location_generate_caution` (
+  `location_id` int NOT NULL,
+  `caution_id` int NOT NULL,
+  PRIMARY KEY (`location_id`,`caution_id`),
+  KEY `caution_id` (`caution_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+--
+-- Déchargement des données de la table `location_generate_caution`
+--
+
+INSERT INTO `location_generate_caution` (`location_id`, `caution_id`) VALUES
+(1, 1),
+(2, 2),
+(3, 3),
+(4, 4),
+(5, 5);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `rapports_etat`
+--
+
+DROP TABLE IF EXISTS `rapports_etat`;
+CREATE TABLE IF NOT EXISTS `rapports_etat` (
+  `rapport_etat_id` int NOT NULL AUTO_INCREMENT,
+  `rapport_etat_comm` varchar(255) NOT NULL,
+  `rapport_etat_etat_general` varchar(50) NOT NULL,
+  `rapport_etat_domm` varchar(255) NOT NULL,
+  PRIMARY KEY (`rapport_etat_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3;
+
+--
+-- Déchargement des données de la table `rapports_etat`
+--
+
+INSERT INTO `rapports_etat` (`rapport_etat_id`, `rapport_etat_comm`, `rapport_etat_etat_general`, `rapport_etat_domm`) VALUES
+(1, 'Rien à signaler, véhicule propre.', 'Très bon', 'Aucun'),
+(2, 'Rayure sur l’aile arrière gauche.', 'Bon', 'Rayure légère'),
+(3, 'Intérieur poussiéreux et pneu avant droit usé.', 'Moyen', 'Usure pneu, nettoyage à prévoir');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `reservations`
+--
+
+DROP TABLE IF EXISTS `reservations`;
+CREATE TABLE IF NOT EXISTS `reservations` (
+  `reservation_id` int NOT NULL AUTO_INCREMENT,
+  `reservation_maniere` varchar(15) NOT NULL,
+  `reservation_etat` varchar(15) NOT NULL,
+  `reservation_date` date NOT NULL,
+  PRIMARY KEY (`reservation_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb3;
+
+--
+-- Déchargement des données de la table `reservations`
+--
+
+INSERT INTO `reservations` (`reservation_id`, `reservation_maniere`, `reservation_etat`, `reservation_date`) VALUES
+(1, 'En ligne', 'En cours', '2025-07-24'),
+(2, 'Sur place', 'Validée', '2025-07-22'),
+(3, 'Sur place', 'Refusée', '2025-07-20'),
+(4, 'En ligne', 'Validée', '2025-07-23');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `reser_vehicules`
+--
+
+DROP TABLE IF EXISTS `reser_vehicules`;
+CREATE TABLE IF NOT EXISTS `reser_vehicules` (
+  `vehicule_id` int NOT NULL,
+  `reservation_id` int NOT NULL,
+  PRIMARY KEY (`vehicule_id`,`reservation_id`),
+  KEY `reservation_id` (`reservation_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+--
+-- Déchargement des données de la table `reser_vehicules`
+--
+
+INSERT INTO `reser_vehicules` (`vehicule_id`, `reservation_id`) VALUES
+(1, 1),
+(5, 1),
+(2, 2),
+(3, 3),
+(4, 4),
+(6, 4);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `vehicules`
+--
+
+DROP TABLE IF EXISTS `vehicules`;
+CREATE TABLE IF NOT EXISTS `vehicules` (
+  `vehicule_id` int NOT NULL AUTO_INCREMENT,
+  `vehicule_marque` varchar(25) NOT NULL,
+  `vehicule_modele` varchar(25) NOT NULL,
+  `vehicule_categorie` varchar(25) NOT NULL,
+  `vehicule_etat` varchar(35) NOT NULL,
+  `rapport_etat_id` int NOT NULL,
+  PRIMARY KEY (`vehicule_id`),
+  KEY `rapport_etat_id` (`rapport_etat_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb3;
+
+--
+-- Déchargement des données de la table `vehicules`
+--
+
+INSERT INTO `vehicules` (`vehicule_id`, `vehicule_marque`, `vehicule_modele`, `vehicule_categorie`, `vehicule_etat`, `rapport_etat_id`) VALUES
+(1, 'Toyota', 'Supra GR', 'Sport', 'Loué', 1),
+(2, 'Nissan', 'GT-R R35', 'Sport', 'Disponible', 2),
+(3, 'Honda', 'Civic Type R', 'Sport', 'En maintenance', 3),
+(4, 'Subaru', 'Forester', 'SUV', 'Disponible', 1),
+(5, 'Mitsubishi', 'Outlander', 'SUV', 'Loué', 2),
+(6, 'Toyota', 'Land Cruiser', 'SUV', 'Disponible', 3),
+(7, 'Mazda', '6', 'Berline', 'En maintenance', 1),
+(8, 'Honda', 'Accord', 'Berline', 'Disponible', 2);
+
+--
+-- Contraintes pour les tables déchargées
+--
+
+--
+-- Contraintes pour la table `client_do_location`
+--
+ALTER TABLE `client_do_location`
+  ADD CONSTRAINT `client_do_location_ibfk_1` FOREIGN KEY (`client_id`) REFERENCES `clients` (`client_id`),
+  ADD CONSTRAINT `client_do_location_ibfk_2` FOREIGN KEY (`location_id`) REFERENCES `locations` (`location_id`);
+
+--
+-- Contraintes pour la table `employe_manage_locations`
+--
+ALTER TABLE `employe_manage_locations`
+  ADD CONSTRAINT `employe_manage_locations_ibfk_1` FOREIGN KEY (`employe_id`) REFERENCES `employes` (`employe_id`),
+  ADD CONSTRAINT `employe_manage_locations_ibfk_2` FOREIGN KEY (`location_id`) REFERENCES `locations` (`location_id`);
+
+--
+-- Contraintes pour la table `employe_manage_rapp`
+--
+ALTER TABLE `employe_manage_rapp`
+  ADD CONSTRAINT `employe_manage_rapp_ibfk_1` FOREIGN KEY (`employe_id`) REFERENCES `employes` (`employe_id`),
+  ADD CONSTRAINT `employe_manage_rapp_ibfk_2` FOREIGN KEY (`rapport_etat_id`) REFERENCES `rapports_etat` (`rapport_etat_id`);
+
+--
+-- Contraintes pour la table `employe_valide_ou_refuse_reser`
+--
+ALTER TABLE `employe_valide_ou_refuse_reser`
+  ADD CONSTRAINT `employe_valide_ou_refuse_reser_ibfk_1` FOREIGN KEY (`employe_id`) REFERENCES `employes` (`employe_id`),
+  ADD CONSTRAINT `employe_valide_ou_refuse_reser_ibfk_2` FOREIGN KEY (`reservation_id`) REFERENCES `reservations` (`reservation_id`);
+
+--
+-- Contraintes pour la table `location_generate_caution`
+--
+ALTER TABLE `location_generate_caution`
+  ADD CONSTRAINT `location_generate_caution_ibfk_1` FOREIGN KEY (`location_id`) REFERENCES `locations` (`location_id`),
+  ADD CONSTRAINT `location_generate_caution_ibfk_2` FOREIGN KEY (`caution_id`) REFERENCES `cautions` (`caution_id`);
+
+--
+-- Contraintes pour la table `reser_vehicules`
+--
+ALTER TABLE `reser_vehicules`
+  ADD CONSTRAINT `reser_vehicules_ibfk_1` FOREIGN KEY (`vehicule_id`) REFERENCES `vehicules` (`vehicule_id`),
+  ADD CONSTRAINT `reser_vehicules_ibfk_2` FOREIGN KEY (`reservation_id`) REFERENCES `reservations` (`reservation_id`);
+
+--
+-- Contraintes pour la table `vehicules`
+--
+ALTER TABLE `vehicules`
+  ADD CONSTRAINT `vehicules_ibfk_1` FOREIGN KEY (`rapport_etat_id`) REFERENCES `rapports_etat` (`rapport_etat_id`);
+--
 -- Base de données : `MusicMix`
 --
 DROP DATABASE IF EXISTS `MusicMix`;
@@ -356,6 +743,36 @@ INSERT INTO `playlists` (`playlist_id`, `playlist_nom`, `utilisateur_id`) VALUES
 (2, 'Gaming Vibes', 2),
 (3, 'Vocaloid Hits', 1),
 (4, 'K-pop Favorites', 3);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `playlists_share_with`
+--
+
+DROP TABLE IF EXISTS `playlists_share_with`;
+CREATE TABLE IF NOT EXISTS `playlists_share_with` (
+  `utilisateur_id` int NOT NULL,
+  `playlist_id` int NOT NULL,
+  PRIMARY KEY (`utilisateur_id`,`playlist_id`),
+  KEY `playlist_id` (`playlist_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+--
+-- Déchargement des données de la table `playlists_share_with`
+--
+
+INSERT INTO `playlists_share_with` (`utilisateur_id`, `playlist_id`) VALUES
+(2, 1),
+(3, 1),
+(5, 1),
+(1, 2),
+(3, 2),
+(4, 3),
+(5, 3),
+(1, 4),
+(2, 4),
+(5, 4);
 
 -- --------------------------------------------------------
 
@@ -522,11 +939,234 @@ ALTER TABLE `playlists`
   ADD CONSTRAINT `playlists_ibfk_1` FOREIGN KEY (`utilisateur_id`) REFERENCES `utilisateurs` (`utilisateur_id`);
 
 --
+-- Contraintes pour la table `playlists_share_with`
+--
+ALTER TABLE `playlists_share_with`
+  ADD CONSTRAINT `playlists_share_with_ibfk_1` FOREIGN KEY (`utilisateur_id`) REFERENCES `utilisateurs` (`utilisateur_id`),
+  ADD CONSTRAINT `playlists_share_with_ibfk_2` FOREIGN KEY (`playlist_id`) REFERENCES `playlists` (`playlist_id`);
+
+--
 -- Contraintes pour la table `playlist_have_music`
 --
 ALTER TABLE `playlist_have_music`
   ADD CONSTRAINT `playlist_have_music_ibfk_1` FOREIGN KEY (`music_id`) REFERENCES `titres_music` (`music_id`),
   ADD CONSTRAINT `playlist_have_music_ibfk_2` FOREIGN KEY (`playlist_id`) REFERENCES `playlists` (`playlist_id`);
+--
+-- Base de données : `photos_albums`
+--
+DROP DATABASE IF EXISTS `photos_albums`;
+CREATE DATABASE IF NOT EXISTS `photos_albums` DEFAULT CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci;
+USE `photos_albums`;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `albums`
+--
+
+DROP TABLE IF EXISTS `albums`;
+CREATE TABLE IF NOT EXISTS `albums` (
+  `album_id` int NOT NULL AUTO_INCREMENT,
+  `album_nom` varchar(50) NOT NULL,
+  `album_date_creation` date NOT NULL,
+  PRIMARY KEY (`album_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb3;
+
+--
+-- Déchargement des données de la table `albums`
+--
+
+INSERT INTO `albums` (`album_id`, `album_nom`, `album_date_creation`) VALUES
+(1, 'Souvenirs de Konoha', '2023-08-12'),
+(2, 'Aventures de Fairy Tail', '2024-01-27'),
+(3, 'Photos de la Team Straw Hat', '2022-11-03'),
+(4, 'Moments à l’Académie UA', '2023-05-20'),
+(5, 'Exploration de l’univers Pokémon', '2024-06-15'),
+(6, 'Instants à Karakura', '2023-09-10'),
+(7, 'Journée au Quartier Général des Exorcistes', '2022-12-01');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `album_share_with`
+--
+
+DROP TABLE IF EXISTS `album_share_with`;
+CREATE TABLE IF NOT EXISTS `album_share_with` (
+  `utilisateur_id` int NOT NULL,
+  `album_id` int NOT NULL,
+  PRIMARY KEY (`utilisateur_id`,`album_id`),
+  KEY `album_id` (`album_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+--
+-- Déchargement des données de la table `album_share_with`
+--
+
+INSERT INTO `album_share_with` (`utilisateur_id`, `album_id`) VALUES
+(2, 1),
+(3, 1),
+(1, 2),
+(5, 2),
+(2, 3),
+(1, 4),
+(3, 4),
+(2, 5),
+(4, 5),
+(1, 6),
+(5, 6),
+(2, 7),
+(4, 7);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `photos`
+--
+
+DROP TABLE IF EXISTS `photos`;
+CREATE TABLE IF NOT EXISTS `photos` (
+  `photo_id` int NOT NULL AUTO_INCREMENT,
+  `photo_desc` varchar(255) DEFAULT NULL,
+  `photo_date_ajout` date NOT NULL,
+  `photo_url` varchar(255) NOT NULL,
+  PRIMARY KEY (`photo_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb3;
+
+--
+-- Déchargement des données de la table `photos`
+--
+
+INSERT INTO `photos` (`photo_id`, `photo_desc`, `photo_date_ajout`, `photo_url`) VALUES
+(1, 'Demon Slayer style illustration jaune - CC0 public domain', '2025-07-25', 'https://publicdomainpictures.net/en/view-image.php?image=367801'),
+(2, 'Illustration japonaise traditionnelle', '2025-07-25', 'https://rawpixel.com/image/10193004'),
+(3, 'Jeune fille manga tenant un chat - style kawaii', '2025-07-25', 'https://rawpixel.com/image/6726226'),
+(4, 'Fille manga médiévale', '2025-07-25', 'https://i.pinimg.com/736x/7b/88/f4/7b88f4a76d57f1aab3a579107fc92f70.jpg'),
+(5, 'Alita Battle Angel', '2025-07-25', 'https://i.pinimg.com/736x/ec/ba/30/ecba3090a002904afd795601e3fbfb91.jpg'),
+(6, 'Illustration manga portrait femme cheveux bleus, CC0 public domain', '2025-07-25', 'https://publicdomainpictures.net/en/view-image.php?image=582042'),
+(7, 'Guerrière manga style samouraï avec épée - CC0 public domain', '2025-07-25', 'https://publicdomainpictures.net/en/view-image.php?image=88849'),
+(8, 'Figurine manga japonaise - photo HD CC0 public domain', '2025-07-25', 'https://publicdomainpictures.net/en/view-image.php?image=372485'),
+(9, 'Ciel dessiné style anime manga - illustration libre CC0', '2025-07-25', 'https://www.freepik.com/premium-ai-image/blue-sky-with-clouds-blue-sky-with-clouds-manga-anime-comic-style-digital-art-style-illustration-painting_37450056.htm'),
+(10, 'Fille manga Dragon Ball', '2025-07-25', 'https://i.pinimg.com/1200x/0a/e3/f0/0ae3f0ca49e857d92aa98a45169c3b00.jpg'),
+(11, '5 filles manga avec la même tenue Japonaise', '2025-07-25', 'https://stock.adobe.com/images/anime-manga-girls-in-short-pleated-skirts-with-white-shirt-and-black-tie-fading-from-black-and-white-to-color-made-with-generative-ai/559687729'),
+(12, 'Personnage manga style robot/genre cyber - CC0 public domain', '2025-07-25', 'https://publicdomainpictures.net/en/view-image.php?image=372572'),
+(13, 'Personnage manga avec un casque rose sur sa tête', '2025-07-25', 'https://stock.adobe.com/images/anime-girl-with-headphones/604982252'),
+(14, 'Fille manga cyborg aux yeux bleus, cheuveux argentés et bleu ciel vers le bas en dégradé', '2025-07-25', 'https://stock.adobe.com/images/anime-women-cyborg/1452084975'),
+(15, 'Guilde FairyTail avec plein de personnages', '2025-07-25', 'https://i.pinimg.com/1200x/b2/74/97/b27497b2c160688be0de90a409ee56bc.jpg');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `photo_in_album`
+--
+
+DROP TABLE IF EXISTS `photo_in_album`;
+CREATE TABLE IF NOT EXISTS `photo_in_album` (
+  `album_id` int NOT NULL,
+  `photo_id` int NOT NULL,
+  PRIMARY KEY (`album_id`,`photo_id`),
+  KEY `photo_id` (`photo_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+--
+-- Déchargement des données de la table `photo_in_album`
+--
+
+INSERT INTO `photo_in_album` (`album_id`, `photo_id`) VALUES
+(1, 1),
+(1, 2),
+(2, 3),
+(2, 4),
+(3, 5),
+(3, 6),
+(4, 7),
+(4, 8),
+(5, 9),
+(5, 10),
+(6, 11),
+(6, 12),
+(6, 13),
+(7, 14),
+(7, 15);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `utilisateurs`
+--
+
+DROP TABLE IF EXISTS `utilisateurs`;
+CREATE TABLE IF NOT EXISTS `utilisateurs` (
+  `utilisateur_id` int NOT NULL AUTO_INCREMENT,
+  `utilisateur_prenom` varchar(25) NOT NULL,
+  `utilisateur_nom` varchar(35) NOT NULL,
+  `utilisateur_mail` varchar(50) NOT NULL,
+  `utilisateur_mdp` varchar(50) NOT NULL,
+  PRIMARY KEY (`utilisateur_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3;
+
+--
+-- Déchargement des données de la table `utilisateurs`
+--
+
+INSERT INTO `utilisateurs` (`utilisateur_id`, `utilisateur_prenom`, `utilisateur_nom`, `utilisateur_mail`, `utilisateur_mdp`) VALUES
+(1, 'Naruto', 'Uzumaki', 'naruto.uzumaki@konoha.jp', 'Rasengan123'),
+(2, 'Sakura', 'Haruno', 'sakura.haruno@konoha.jp', 'CherryBlossom2024'),
+(3, 'Luffy', 'Monkey D.', 'luffy.monkey@onepiece.jp', 'GomuGomuNo456'),
+(4, 'Ichigo', 'Kurosaki', 'ichigo.kurosaki@karakura.jp', 'Bankai789'),
+(5, 'Erza', 'Scarlet', 'erza.scarlet@fairytail.jp', 'TitaniaFT2025');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `util_create_album`
+--
+
+DROP TABLE IF EXISTS `util_create_album`;
+CREATE TABLE IF NOT EXISTS `util_create_album` (
+  `utilisateur_id` int NOT NULL,
+  `album_id` int NOT NULL,
+  PRIMARY KEY (`utilisateur_id`,`album_id`),
+  KEY `album_id` (`album_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+--
+-- Déchargement des données de la table `util_create_album`
+--
+
+INSERT INTO `util_create_album` (`utilisateur_id`, `album_id`) VALUES
+(1, 1),
+(2, 2),
+(3, 3),
+(4, 4),
+(5, 5),
+(1, 6),
+(3, 7);
+
+--
+-- Contraintes pour les tables déchargées
+--
+
+--
+-- Contraintes pour la table `album_share_with`
+--
+ALTER TABLE `album_share_with`
+  ADD CONSTRAINT `album_share_with_ibfk_1` FOREIGN KEY (`utilisateur_id`) REFERENCES `utilisateurs` (`utilisateur_id`),
+  ADD CONSTRAINT `album_share_with_ibfk_2` FOREIGN KEY (`album_id`) REFERENCES `albums` (`album_id`);
+
+--
+-- Contraintes pour la table `photo_in_album`
+--
+ALTER TABLE `photo_in_album`
+  ADD CONSTRAINT `photo_in_album_ibfk_1` FOREIGN KEY (`album_id`) REFERENCES `albums` (`album_id`),
+  ADD CONSTRAINT `photo_in_album_ibfk_2` FOREIGN KEY (`photo_id`) REFERENCES `photos` (`photo_id`);
+
+--
+-- Contraintes pour la table `util_create_album`
+--
+ALTER TABLE `util_create_album`
+  ADD CONSTRAINT `util_create_album_ibfk_1` FOREIGN KEY (`utilisateur_id`) REFERENCES `utilisateurs` (`utilisateur_id`),
+  ADD CONSTRAINT `util_create_album_ibfk_2` FOREIGN KEY (`album_id`) REFERENCES `albums` (`album_id`);
 --
 -- Base de données : `SchoolBooks`
 --
