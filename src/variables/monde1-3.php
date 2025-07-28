@@ -18,6 +18,12 @@
         $boolean = true;
 
         echo "$string   $int    $float  $boolean";
+        echo gettype($string);
+        echo gettype($int);
+        echo gettype($float);
+        echo gettype($boolean);
+
+// gettype($variable) pour afficher le type d'une variable.
 
 // echo typeof $string;
 ?>

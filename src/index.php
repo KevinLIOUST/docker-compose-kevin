@@ -10,6 +10,9 @@
         <li><a href="variables/monde1-1.php">Monde 1-1</a></li>
         <li><a href="variables/monde1-2.php">Monde 1-2</a></li>
         <li><a href="variables/monde1-3.php">Monde 1-3</a></li>
+        <li><a href="variables/monde1-4.php">Monde 1-4</a></li>
+        <li><a href="variables/monde1-5.php">Monde 1-5</a></li>
+        <li><a href="variables/monde1-6.php">Monde 1-6</a></li>
     </ul>
 </body>
 </html>
