@@ -613,7 +613,125 @@ CREATE DATABASE location_vehicules CHARACTER SET utf8;
 
 -- Création des tables
 
-DROP TABLE IF EXISTS clients;
+-- DROP TABLE IF EXISTS clients;
+-- CREATE TABLE clients(
+--    client_id INT AUTO_INCREMENT,
+--    client_prenom VARCHAR(30) NOT NULL,
+--    client_nom VARCHAR(50),
+--    PRIMARY KEY(client_id)
+-- );
+
+-- DROP TABLE IF EXISTS employes;
+-- CREATE TABLE employes(
+--    employe_id INT AUTO_INCREMENT,
+--    employe_prenom VARCHAR(30) NOT NULL,
+--    employe_nom VARCHAR(50) NOT NULL,
+--    PRIMARY KEY(employe_id)
+-- );
+
+-- DROP TABLE IF EXISTS vehicules;
+-- CREATE TABLE vehicules(
+--    vehicule_id INT AUTO_INCREMENT,
+--    vehicule_marque VARCHAR(25) NOT NULL,
+--    vehicule_modele VARCHAR(25) NOT NULL,
+--    vehicule_categorie VARCHAR(25) NOT NULL,
+--    vehicule_etat VARCHAR(35) NOT NULL,
+--    rapport_etat_id INT NOT NULL,
+--    PRIMARY KEY(vehicule_id),
+--    FOREIGN KEY(rapport_etat_id) REFERENCES rapports_etat(rapport_etat_id)
+-- );
+
+-- DROP TABLE IF EXISTS locations;
+-- CREATE TABLE locations(
+--    location_id INT AUTO_INCREMENT,
+--    location_date_debut DATE NOT NULL,
+--    location_date_fin DATE NOT NULL,
+--    location_kil_depart INT NOT NULL,
+--    location_kil_retour INT,
+--    PRIMARY KEY(location_id)
+-- );
+
+-- DROP TABLE IF EXISTS reservations;
+-- CREATE TABLE reservations(
+--    reservation_id INT AUTO_INCREMENT,
+--    reservation_maniere VARCHAR(15) NOT NULL,
+--    reservation_etat VARCHAR(15) NOT NULL,
+--    reservation_date DATE NOT NULL,
+--    PRIMARY KEY(reservation_id)
+-- );
+
+-- DROP TABLE IF EXISTS rapports_etat;
+-- CREATE TABLE rapports_etat(
+--    rapport_etat_id INT AUTO_INCREMENT,
+--    rapport_etat_comm VARCHAR(255) NOT NULL,
+--    rapport_etat_etat_general VARCHAR(50) NOT NULL,
+--    rapport_etat_domm VARCHAR(255) NOT NULL,
+--    PRIMARY KEY(rapport_etat_id)
+-- );
+
+-- DROP TABLE IF EXISTS cautions;
+-- CREATE TABLE cautions(
+--    caution_id INT AUTO_INCREMENT,
+--    caution_montant INT NOT NULL,
+--    caution_date DATE NOT NULL,
+--    caution_statut VARCHAR(50) NOT NULL,
+--    PRIMARY KEY(caution_id)
+-- );
+
+-- DROP TABLE IF EXISTS client_do_location;
+-- CREATE TABLE client_do_location(
+--    client_id INT,
+--    location_id INT,
+--    PRIMARY KEY(client_id, location_id),
+--    FOREIGN KEY(client_id) REFERENCES clients(client_id),
+--    FOREIGN KEY(location_id) REFERENCES locations(location_id)
+-- );
+
+-- DROP TABLE IF EXISTS location_generate_caution;
+-- CREATE TABLE location_generate_caution(
+--    location_id INT,
+--    caution_id INT,
+--    PRIMARY KEY(location_id, caution_id),
+--    FOREIGN KEY(location_id) REFERENCES locations(location_id),
+--    FOREIGN KEY(caution_id) REFERENCES cautions(caution_id)
+-- );
+
+-- DROP TABLE IF EXISTS employe_valide_ou_refuse_reser;
+-- CREATE TABLE employe_valide_ou_refuse_reser(
+--    employe_id INT,
+--    reservation_id INT,
+--    PRIMARY KEY(employe_id, reservation_id),
+--    FOREIGN KEY(employe_id) REFERENCES employes(employe_id),
+--    FOREIGN KEY(reservation_id) REFERENCES reservations(reservation_id)
+-- );
+
+-- DROP TABLE IF EXISTS reser_vehicules;
+-- CREATE TABLE reser_vehicules(
+--    vehicule_id INT,
+--    reservation_id INT,
+--    PRIMARY KEY(vehicule_id, reservation_id),
+--    FOREIGN KEY(vehicule_id) REFERENCES vehicules(vehicule_id),
+--    FOREIGN KEY(reservation_id) REFERENCES reservations(reservation_id)
+-- );
+
+-- DROP TABLE IF EXISTS employe_manage_locations;
+-- CREATE TABLE employe_manage_locations(
+--    employe_id INT,
+--    location_id INT,
+--    PRIMARY KEY(employe_id, location_id),
+--    FOREIGN KEY(employe_id) REFERENCES employes(employe_id),
+--    FOREIGN KEY(location_id) REFERENCES locations(location_id)
+-- );
+
+-- DROP TABLE IF EXISTS employe_manage_rapp;
+-- CREATE TABLE employe_manage_rapp(
+--    employe_id INT,
+--    rapport_etat_id INT,
+--    PRIMARY KEY(employe_id, rapport_etat_id),
+--    FOREIGN KEY(employe_id) REFERENCES employes(employe_id),
+--    FOREIGN KEY(rapport_etat_id) REFERENCES rapports_etat(rapport_etat_id)
+-- );
+
 CREATE TABLE clients(
    client_id INT AUTO_INCREMENT,
    client_prenom VARCHAR(30) NOT NULL,
@@ -621,7 +739,6 @@ CREATE TABLE clients(
    PRIMARY KEY(client_id)
 );
 
-DROP TABLE IF EXISTS employes;
 CREATE TABLE employes(
    employe_id INT AUTO_INCREMENT,
    employe_prenom VARCHAR(30) NOT NULL,
@@ -629,47 +746,26 @@ CREATE TABLE employes(
    PRIMARY KEY(employe_id)
 );
 
-DROP TABLE IF EXISTS vehicules;
-CREATE TABLE vehicules(
-   vehicule_id INT AUTO_INCREMENT,
-   vehicule_marque VARCHAR(25) NOT NULL,
-   vehicule_modele VARCHAR(25) NOT NULL,
-   vehicule_categorie VARCHAR(25) NOT NULL,
-   vehicule_etat VARCHAR(35) NOT NULL,
-   rapport_etat_id INT NOT NULL,
-   PRIMARY KEY(vehicule_id),
-   FOREIGN KEY(rapport_etat_id) REFERENCES rapports_etat(rapport_etat_id)
-);
-
-DROP TABLE IF EXISTS locations;
-CREATE TABLE locations(
-   location_id INT AUTO_INCREMENT,
-   location_date_debut DATE NOT NULL,
-   location_date_fin DATE NOT NULL,
-   location_kil_depart INT NOT NULL,
-   location_kil_retour INT,
-   PRIMARY KEY(location_id)
-);
-
-DROP TABLE IF EXISTS reservations;
 CREATE TABLE reservations(
    reservation_id INT AUTO_INCREMENT,
    reservation_maniere VARCHAR(15) NOT NULL,
    reservation_etat VARCHAR(15) NOT NULL,
    reservation_date DATE NOT NULL,
-   PRIMARY KEY(reservation_id)
+   employe_id INT NOT NULL,
+   PRIMARY KEY(reservation_id),
+   FOREIGN KEY(employe_id) REFERENCES employes(employe_id)
 );
 
-DROP TABLE IF EXISTS rapports_etat;
 CREATE TABLE rapports_etat(
    rapport_etat_id INT AUTO_INCREMENT,
    rapport_etat_comm VARCHAR(255) NOT NULL,
    rapport_etat_etat_general VARCHAR(50) NOT NULL,
    rapport_etat_domm VARCHAR(255) NOT NULL,
-   PRIMARY KEY(rapport_etat_id)
+   employe_id INT NOT NULL,
+   PRIMARY KEY(rapport_etat_id),
+   FOREIGN KEY(employe_id) REFERENCES employes(employe_id)
 );
 
-DROP TABLE IF EXISTS cautions;
 CREATE TABLE cautions(
    caution_id INT AUTO_INCREMENT,
    caution_montant INT NOT NULL,
@@ -678,58 +774,32 @@ CREATE TABLE cautions(
    PRIMARY KEY(caution_id)
 );
 
-DROP TABLE IF EXISTS client_do_location;
-CREATE TABLE client_do_location(
-   client_id INT,
-   location_id INT,
-   PRIMARY KEY(client_id, location_id),
-   FOREIGN KEY(client_id) REFERENCES clients(client_id),
-   FOREIGN KEY(location_id) REFERENCES locations(location_id)
-);
-
-DROP TABLE IF EXISTS location_generate_caution;
-CREATE TABLE location_generate_caution(
-   location_id INT,
-   caution_id INT,
-   PRIMARY KEY(location_id, caution_id),
-   FOREIGN KEY(location_id) REFERENCES locations(location_id),
-   FOREIGN KEY(caution_id) REFERENCES cautions(caution_id)
-);
-
-DROP TABLE IF EXISTS employe_valide_ou_refuse_reser;
-CREATE TABLE employe_valide_ou_refuse_reser(
-   employe_id INT,
-   reservation_id INT,
-   PRIMARY KEY(employe_id, reservation_id),
-   FOREIGN KEY(employe_id) REFERENCES employes(employe_id),
+CREATE TABLE vehicules(
+   vehicule_id INT AUTO_INCREMENT,
+   vehicule_marque VARCHAR(25) NOT NULL,
+   vehicule_modele VARCHAR(25) NOT NULL,
+   vehicule_categorie VARCHAR(25) NOT NULL,
+   vehicule_etat VARCHAR(35) NOT NULL,
+   rapport_etat_id INT NOT NULL,
+   reservation_id INT NOT NULL,
+   PRIMARY KEY(vehicule_id),
+   FOREIGN KEY(rapport_etat_id) REFERENCES rapports_etat(rapport_etat_id),
    FOREIGN KEY(reservation_id) REFERENCES reservations(reservation_id)
 );
 
-DROP TABLE IF EXISTS reser_vehicules;
-CREATE TABLE reser_vehicules(
-   vehicule_id INT,
-   reservation_id INT,
-   PRIMARY KEY(vehicule_id, reservation_id),
-   FOREIGN KEY(vehicule_id) REFERENCES vehicules(vehicule_id),
-   FOREIGN KEY(reservation_id) REFERENCES reservations(reservation_id)
-);
-
-DROP TABLE IF EXISTS employe_manage_locations;
-CREATE TABLE employe_manage_locations(
-   employe_id INT,
-   location_id INT,
-   PRIMARY KEY(employe_id, location_id),
+CREATE TABLE locations(
+   location_id INT AUTO_INCREMENT,
+   location_date_debut DATE NOT NULL,
+   location_date_fin DATE NOT NULL,
+   location_kil_depart INT NOT NULL,
+   location_kil_retour INT,
+   employe_id INT NOT NULL,
+   caution_id INT NOT NULL,
+   client_id INT NOT NULL,
+   PRIMARY KEY(location_id),
    FOREIGN KEY(employe_id) REFERENCES employes(employe_id),
-   FOREIGN KEY(location_id) REFERENCES locations(location_id)
-);
-
-DROP TABLE IF EXISTS employe_manage_rapp;
-CREATE TABLE employe_manage_rapp(
-   employe_id INT,
-   rapport_etat_id INT,
-   PRIMARY KEY(employe_id, rapport_etat_id),
-   FOREIGN KEY(employe_id) REFERENCES employes(employe_id),
-   FOREIGN KEY(rapport_etat_id) REFERENCES rapports_etat(rapport_etat_id)
+   FOREIGN KEY(caution_id) REFERENCES cautions(caution_id),
+   FOREIGN KEY(client_id) REFERENCES clients(client_id)
 );
 
 -- Insertion des données
@@ -745,33 +815,16 @@ INSERT INTO employes (employe_prenom, employe_nom) VALUES
 ('Levi', 'Ackerman'),
 ('Nami', 'Arlong');
 
-INSERT INTO vehicules (vehicule_marque, vehicule_modele, vehicule_categorie, vehicule_etat, rapport_etat_id) VALUES
-('Toyota', 'Supra GR', 'Sport', 'Loué', 1),
-('Nissan', 'GT-R R35', 'Sport', 'Disponible', 2),
-('Honda', 'Civic Type R', 'Sport', 'En maintenance', 3),
-('Subaru', 'Forester', 'SUV', 'Disponible', 1),
-('Mitsubishi', 'Outlander', 'SUV', 'Loué', 2),
-('Toyota', 'Land Cruiser', 'SUV', 'Disponible', 3),
-('Mazda', '6', 'Berline', 'En maintenance', 1),
-('Honda', 'Accord', 'Berline', 'Disponible', 2);
+INSERT INTO reservations (reservation_maniere, reservation_etat, reservation_date, employe_id) VALUES
+('En ligne', 'En cours', '2025-07-24', 1),
+('Sur place', 'Validée', '2025-07-22', 2),
+('Sur place', 'Refusée', '2025-07-20', 1),
+('En ligne', 'Validée', '2025-07-23', 2);
 
-INSERT INTO locations (location_date_debut, location_date_fin, location_kil_depart, location_kil_retour) VALUES
-('2025-07-01', '2025-07-05', 15200, 15640),
-('2025-07-10', '2025-07-15', 8750, 9025),
-('2025-06-20', '2025-06-25', 43500, 43980),
-('2025-07-18', '2025-08-18', 23000, NULL),
-('2025-07-05', '2025-07-09', 10120, 10450);
-
-INSERT INTO reservations (reservation_maniere, reservation_etat, reservation_date) VALUES
-('En ligne', 'En cours', '2025-07-24'),
-('Sur place', 'Validée', '2025-07-22'),
-('Sur place', 'Refusée', '2025-07-20'),
-('En ligne', 'Validée', '2025-07-23');
-
-INSERT INTO rapports_etat (rapport_etat_comm, rapport_etat_etat_general, rapport_etat_domm) VALUES
-('Rien à signaler, véhicule propre.', 'Très bon', 'Aucun'),
-('Rayure sur l’aile arrière gauche.', 'Bon', 'Rayure légère'),
-('Intérieur poussiéreux et pneu avant droit usé.', 'Moyen', 'Usure pneu, nettoyage à prévoir');
+INSERT INTO rapports_etat (rapport_etat_comm, rapport_etat_etat_general, rapport_etat_domm, employe_id) VALUES
+('Rien à signaler, véhicule propre.', 'Très bon', 'Aucun', 1),
+('Rayure sur l’aile arrière gauche.', 'Bon', 'Rayure légère', 2),
+('Intérieur poussiéreux et pneu avant droit usé.', 'Moyen', 'Usure pneu, nettoyage à prévoir', 2);
 
 INSERT INTO cautions (caution_montant, caution_date, caution_statut) VALUES
 (500.00, '2025-07-01', 'Restituée'),
@@ -780,45 +833,22 @@ INSERT INTO cautions (caution_montant, caution_date, caution_statut) VALUES
 (750.00, '2025-07-20', 'En attente'),
 (700.00, '2025-07-05', 'Retenue');
 
-INSERT INTO client_do_location (client_id, location_id) VALUES
-(1, 1),
-(2, 2),
-(3, 3),
-(4, 4),
-(5, 5);
+INSERT INTO vehicules (vehicule_marque, vehicule_modele, vehicule_categorie, vehicule_etat, rapport_etat_id, reservation_id) VALUES
+('Toyota', 'Supra GR', 'Sport', 'Loué', 1, 1),
+('Nissan', 'GT-R R35', 'Sport', 'Disponible', 2, 2),
+('Honda', 'Civic Type R', 'Sport', 'En maintenance', 3, 3),
+('Subaru', 'Forester', 'SUV', 'Disponible', 1, 4),
+('Mitsubishi', 'Outlander', 'SUV', 'Loué', 2, 1),
+('Toyota', 'Land Cruiser', 'SUV', 'Disponible', 3, 4),
+('Mazda', '6', 'Berline', 'En maintenance', 1, 2),
+('Honda', 'Accord', 'Berline', 'Disponible', 2, 4);
 
-INSERT INTO location_generate_caution (location_id, caution_id) VALUES
-(1, 1),
-(2, 2),
-(3, 3),
-(4, 4),
-(5, 5);
-
-INSERT INTO employe_valide_ou_refuse_reser (employe_id, reservation_id) VALUES
-(1, 1),
-(2, 2),
-(1, 3),
-(2, 4);
-
-INSERT INTO reser_vehicules (vehicule_id, reservation_id) VALUES
-(1, 1),
-(2, 2),
-(3, 3),
-(4, 4),
-(5, 1),
-(6, 4);
-
-INSERT INTO employe_manage_locations (employe_id, location_id) VALUES
-(1, 1),
-(2, 2),
-(1, 3),
-(2, 4),
-(1, 5);
-
-INSERT INTO employe_manage_rapp (employe_id, rapport_etat_id) VALUES
-(1, 1),
-(2, 2),
-(1, 3);
+INSERT INTO locations (location_date_debut, location_date_fin, location_kil_depart, location_kil_retour, employe_id, caution_id, client_id) VALUES
+('2025-07-01', '2025-07-05', 15200, 15640, 1, 1, 1),
+('2025-07-10', '2025-07-15', 8750, 9025, 2, 2, 2),
+('2025-06-20', '2025-06-25', 43500, 43980, 1, 3, 3),
+('2025-07-18', '2025-08-18', 23000, NULL, 2, 4, 4),
+('2025-07-05', '2025-07-09', 10120, 10450, 1, 5, 5);
 
 -- 1. Afficher tous les véhicules avec leur état actuel.
 
@@ -826,13 +856,15 @@ SELECT * FROM vehicules;
 
 -- 2. Afficher les clients avec leur nombre total de locations.
 
-SELECT clients.client_prenom, clients.client_nom, COUNT(client_do_location.client_id) AS `Nombre de locations`  FROM clients
-INNER JOIN client_do_location ON client_do_location.client_id = clients.client_id
+SELECT clients.client_prenom, clients.client_nom, COUNT(locations.client_id) AS `Nombre de locations`  FROM clients
+INNER JOIN locations ON locations.client_id = clients.client_id
 GROUP BY clients.client_prenom, clients.client_nom;
 
 -- 3. Afficher les véhicules disponibles sur une période donnée.
 
-SELECT * FROM vehicules WHERE vehicules.vehicule_etat = 'Disponible';
+SELECT * FROM vehicules
+INNER JOIN reservations ON reservations.reservation_id  = vehicules.reservation_id
+WHERE vehicules.vehicule_etat = 'Disponible';
 
 -- 4. Afficher les réservations avec type (en ligne/sur place), statut, dates
 
@@ -844,9 +876,25 @@ SELECT * FROM locations WHERE location_kil_retour IS NULL;
 
 -- 6. Afficher les véhicules avec leur historique de rapport d’état.
 
-SELECT *, rapports_etat.rapport_etat_comm, rapports_etat.rapport_etat_etat_general, rapports_etat.rapport_etat_domm FROM vehicules
-INNER JOIN rapports_etat ON vehicules.rapport_etat_id = rapports_etat.rapport_etat_id;
+-- SELECT *, rapports_etat.rapport_etat_comm, rapports_etat.rapport_etat_etat_general, rapports_etat.rapport_etat_domm FROM vehicules
+-- INNER JOIN rapports_etat ON vehicules.rapport_etat_id = rapports_etat.rapport_etat_id;
+SELECT
+vehicules.vehicule_marque,
+vehicules.vehicule_modele,
+vehicules.vehicule_categorie,
+vehicules.vehicule_etat,
+rapports_etat.rapport_etat_comm,
+rapports_etat.rapport_etat_etat_general,
+rapports_etat.rapport_etat_domm
+FROM vehicules
+INNER JOIN rapports_etat ON rapports_etat.rapport_etat_id = vehicules.rapport_etat_id;
 
 -- 7. Afficher les véhicules jamais loués.
 
+SELECT * FROM vehicules WHERE vehicules.vehicule_etat != 'Loué';
+
 -- 8. Afficher toutes les cautions non libérées avec le client, le véhicule loué, et le montant.
+
+SELECT * FROM cautions
+INNER JOIN vehicules ON vehicules.vehicule_id = cautions.caution_id
+WHERE vehicules.vehicule_etat = 'Loué';
