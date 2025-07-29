@@ -17,13 +17,21 @@
     </ul>
     <p>Monde 2 : Les conditions</p>
     <ul>
-        <li><a href="variables/monde2-1.php">Monde 2-1</a></li>
-        <li><a href="variables/monde2-2.php">Monde 2-2</a></li>
-        <li><a href="variables/monde2-3.php">Monde 2-3</a></li>
-        <li><a href="variables/monde2-4.php">Monde 2-4</a></li>
-        <li><a href="variables/monde2-5.php">Monde 2-5</a></li>
-        <li><a href="variables/monde2-6.php">Monde 2-6</a></li>
-        <li><a href="variables/monde2-7.php">Monde 2-7</a></li>
+        <li><a href="conditions/monde2-1.php">Monde 2-1</a></li>
+        <li><a href="conditions/monde2-2.php">Monde 2-2</a></li>
+        <li><a href="conditions/monde2-3.php">Monde 2-3</a></li>
+        <li><a href="conditions/monde2-4.php">Monde 2-4</a></li>
+        <li><a href="conditions/monde2-5.php">Monde 2-5</a></li>
+        <li><a href="conditions/monde2-6.php">Monde 2-6</a></li>
+        <li><a href="conditions/monde2-7.php">Monde 2-7</a></li>
+    </ul>
+    <p>Monde 3 : Les boucles</p>
+    <ul>
+        <li><a href="boucles/monde3-1.php">Monde 3-1</a></li>
+        <li><a href="boucles/monde3-2.php">Monde 3-2</a></li>
+        <li><a href="boucles/monde3-3.php">Monde 3-3</a></li>
+        <li><a href="boucles/monde3-4.php">Monde 3-4</a></li>
+        <li><a href="boucles/monde3-5.php">Monde 3-5</a></li>
     </ul>
 </body>
 </html>
