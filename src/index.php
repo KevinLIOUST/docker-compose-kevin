@@ -6,6 +6,7 @@
     <title>Document</title>
 </head>
 <body>
+    <p>Monde 1 : Les variables</p>
     <ul>
         <li><a href="variables/monde1-1.php">Monde 1-1</a></li>
         <li><a href="variables/monde1-2.php">Monde 1-2</a></li>
@@ -13,6 +14,16 @@
         <li><a href="variables/monde1-4.php">Monde 1-4</a></li>
         <li><a href="variables/monde1-5.php">Monde 1-5</a></li>
         <li><a href="variables/monde1-6.php">Monde 1-6</a></li>
+    </ul>
+    <p>Monde 2 : Les conditions</p>
+    <ul>
+        <li><a href="variables/monde2-1.php">Monde 2-1</a></li>
+        <li><a href="variables/monde2-2.php">Monde 2-2</a></li>
+        <li><a href="variables/monde2-3.php">Monde 2-3</a></li>
+        <li><a href="variables/monde2-4.php">Monde 2-4</a></li>
+        <li><a href="variables/monde2-5.php">Monde 2-5</a></li>
+        <li><a href="variables/monde2-6.php">Monde 2-6</a></li>
+        <li><a href="variables/monde2-7.php">Monde 2-7</a></li>
     </ul>
 </body>
 </html>
