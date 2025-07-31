@@ -33,5 +33,11 @@
         <li><a href="boucles/monde3-4.php">Monde 3-4</a></li>
         <li><a href="boucles/monde3-5.php">Monde 3-5</a></li>
     </ul>
+    <p>Monde 4 : Les tableaux</p>
+    <ul>
+        <li><a href="tableaux/monde4-1.php">Monde 4-1</a></li>
+        <li><a href="tableaux/monde4-2.php">Monde 4-2</a></li>
+        <li><a href="tableaux/monde4-3/index.php">Monde 4-3</a></li>
+    </ul>
 </body>
 </html>

@@ -22,70 +22,36 @@
     <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO"
         crossorigin="anonymous"></script>
+
+        <link rel="stylesheet" href="cssGridCalendar.css">
 </head>
 <body>
     <div>
-        <p class="text-danger m-3"><?php echo "$month $year"; ?></p>
+        <p class="text-danger text-center m-3"><?php echo "$month $year"; ?></p>
     </div>
-    <div class="container text-start">
-        <div class="row">
-            <div class="col">
-                L
-            </div>
-            <div class="col">
-                M
-            </div>
-            <div class="col">
-                M
-            </div>
-            <div class="col">
-                J
-            </div>
-            <div class="col">
-                V
-            </div>
-            <div class="col">
-                S
-            </div>
-            <div class="col">
-                D
-            </div>
-        </div>
-        <div class="row flex-wrap">
-            <?php for ($i = 1; $i <= 7; $i++) {
-                echo "
-                <div class=\"col\">
-                    $i
-                </div>
-                ";
-            } ?>
-        </div>
-        <div class="row">
-            <?php for ($i = 8; $i <= 14; $i++) {
-                echo "
-                <div class=\"col\">
-                    $i
-                </div>
-                ";
-            } ?>
-        </div>
-        <div class="row">
-            <?php for ($i = 15; $i <= 21; $i++) {
-                echo "
-                <div class=\"col\">
-                    $i
-                </div>
-                ";
-            } ?>
-        </div>
-        <div class="row">
-            <?php for ($i = 22; $i <= 28; $i++) {
-                echo "
-                <div class=\"col\">
-                    $i
-                </div>
-                ";
-            } ?>
+    <div class="text-center">
+        <br>
+        <br>
+        <div class="container">
+            <div class="rounded-3 bg-success text-white mb-3">L</div>
+            <div class="rounded-3 bg-success text-white mb-3">M</div>
+            <div class="rounded-3 bg-success text-white mb-3">M</div>
+            <div class="rounded-3 bg-success text-white mb-3">J</div>
+            <div class="rounded-3 bg-success text-white mb-3">V</div>
+            <div class="rounded-3 bg-success text-white mb-3">S</div>
+            <div class="rounded-3 bg-success text-white mb-3">D</div>
+            <?php for ($i = 1; $i <= $totalDays; $i++) { ?>
+                    <?php if ($i == $specialDay) { ?>
+                        <div class="rounded-3 text-danger <?= $i % 7 == 0 ||
+                        $i % 7 == 6
+                            ? 'bg-dark'
+                            : '' ?>"><b><?= $i ?></b></div>
+                    <?php } else { ?>
+                        <div class="rounded-3 <?= $i % 7 == 0 || $i % 7 == 6
+                            ? 'bg-dark text-white'
+                            : '' ?>"><?= $i ?></div>
+                    <?php } ?>
+            <?php } ?>
         </div>
     </div>
 </body>
