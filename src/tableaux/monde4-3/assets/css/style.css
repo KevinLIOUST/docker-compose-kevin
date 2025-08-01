@@ -1,0 +1,35 @@
+/* Importation de la police d'écriture */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+/* Emprunté de https://www.w3schools.com/css/tryit.asp?filename=trycss_grid_display_inline-grid */
+
+.container {
+  display: inline-grid;
+  width: 90%;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 2rem;
+  padding: 10px;
+}
+
+.container div {
+  background-color: #f1f1f1;
+  /* border: 3px solid black; */
+  padding: 10px;
+  font-size: 10px;
+  text-align: center;
+  border-radius: 0.5rem;
+}
+
+body {
+    font-family: "Press Start 2P";
+    background: #355866;
+    background: linear-gradient(0deg, rgba(53, 88, 102, 1) 0%, rgba(87, 111, 199, 1) 62%, rgba(83, 178, 237, 1) 100%);
+}
+
+h1 {
+    font-size: 25px;
+}
+
+h2 {
+    font-size: 20px;
+}
