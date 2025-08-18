@@ -36,8 +36,7 @@ $products = [
     ],
     [
         'categorie' => 'Informatique',
-        'nom' =>
-            'AMD Ryzen 7 9800X3D - Otaku Boost Edition',
+        'nom' => 'AMD Ryzen 7 9800X3D - Otaku Boost Edition',
         'prix' => 479,
         'description' =>
             'Le Ryzen 7 9800X3D Otaku Boost Edition allie performances de nouvelle génération et ADN geek assumé. Pensé pour les codeurs no-life, les gamers compétitifs et les streamers manga-addicts, ce CPU 8 cœurs dopé au cache 3D est le cœur battant de toute config légendaire !',
@@ -46,8 +45,7 @@ $products = [
     ],
     [
         'categorie' => 'Informatique',
-        'nom' =>
-            'MSI MAG CoreLiquid C360 - Neo Otaku Edition',
+        'nom' => 'MSI MAG CoreLiquid C360 - Neo Otaku Edition',
         'prix' => 110,
         'description' =>
             'Refroidis ton processeur avec style grâce à ce watercooling RGB digne d\'un shōnen : éclairs de chakra visuels, puissance silencieuse et esthétique cyber-otaku !',
@@ -66,18 +64,15 @@ $products = [
     ],
     [
         'categorie' => 'Informatique',
-        'nom' =>
-            'Boîtier PC - MSI MPG GUNGNIR 110R - Heroic Pixel Edition',
+        'nom' => 'Boîtier PC - MSI MPG GUNGNIR 110R - Heroic Pixel Edition',
         'prix' => 115,
         'description' =>
             'Le MPG GUNGNIR 110R Heroic Pixel Edition est le sanctuaire ultime pour les configs de héros. Un design entre donjon high-tech et salle du trône RGB, prêt à accueillir ta carte légendaire et tes quêtes épiques. Parfait pour invoquer puissance et style dans tous les univers !',
-        'image' =>
-            'assets/img/MSI_MPG_Gungnir_110R_Heroic_Pixel_Edition-2.png',
+        'image' => 'assets/img/MSI_MPG_Gungnir_110R_Heroic_Pixel_Edition-2.png',
     ],
     [
         'categorie' => 'Informatique',
-        'nom' =>
-            'Thermaltake Toughpower GT 850W - Pixel Storm Edition',
+        'nom' => 'Thermaltake Toughpower GT 850W - Pixel Storm Edition',
         'prix' => 110,
         'description' =>
             'L\'alimentation Pixel Storm Edition délivre ses 850W comme un sort épique : stabilité, silence, et style. Idéale pour les setups qui brillent aussi fort que le cœur d\'un héros shōnen en plein power-up !',
@@ -86,8 +81,7 @@ $products = [
     ],
     [
         'categorie' => 'Informatique',
-        'nom' =>
-            'Creative Pebbles Pro 2.0 - KameSound Edition',
+        'nom' => 'Creative Pebbles Pro 2.0 - KameSound Edition',
         'prix' => 59,
         'description' =>
             'Les enceintes creative Pebbles Pro 2.0 - KameSound Edition combinent un design sphérique galactique et un son percutant digne d\'une arène finale de boss. Compactes mais puissantes, elles transforment chaque morceau en moment épique d\'anime ou de JRPG.',
@@ -96,22 +90,18 @@ $products = [
     ],
     [
         'categorie' => 'Informatique',
-        'nom' =>
-            'Cocopa USB 3.0 CD/DVD - RetroGalaxy Edition',
+        'nom' => 'Cocopa USB 3.0 CD/DVD - RetroGalaxy Edition',
         'prix' => 20,
         'description' =>
             'Le Cocopa RetroGalaxy Edition te permet de lire, graver et explorer tes disques comme à l\'époque héroïque des JRPG sur PC ! Embarque ton vieux stock d\'OST, tes collectors DVD anime et redonne vie à ta nostalgie en USB 3.0 !',
-        'image' =>
-            'assets/img/Lecteur_CD-DVD_RetroGalaxy_Edition-2.png',
+        'image' => 'assets/img/Lecteur_CD-DVD_RetroGalaxy_Edition-2.png',
     ],
     [
         'categorie' => 'Informatique',
-        'nom' =>
-            'MSI Vigor GK30 - Hikari RGB Otaku Edition',
+        'nom' => 'MSI Vigor GK30 - Hikari RGB Otaku Edition',
         'prix' => 68,
         'description' =>
             'Le GK30 Hikari RGB Otaku Edition allie performance MSI et esthétisme pixel-anime. Parfait pour coder, jouer, et écrire ton prochain fanfic de l\'univers multivers en RGB, ce clavier transforme chaque touche en une incantation geek !',
-        'image' =>
-            'assets/img/Clavier_MSI-2.png',
-    ]
+        'image' => 'assets/img/Clavier_MSI-2.png',
+    ],
 ]; ?>

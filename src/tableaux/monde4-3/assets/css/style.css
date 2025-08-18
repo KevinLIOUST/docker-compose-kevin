@@ -1,5 +1,5 @@
 /* Importation de la police d'écriture */
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Oxanium:wght@200..800&display=swap');
 
 /* Emprunté de https://www.w3schools.com/css/tryit.asp?filename=trycss_grid_display_inline-grid */
 
@@ -21,15 +21,34 @@
 }
 
 body {
-    font-family: "Press Start 2P";
-    background: #355866;
-    background: linear-gradient(0deg, rgba(53, 88, 102, 1) 0%, rgba(87, 111, 199, 1) 62%, rgba(83, 178, 237, 1) 100%);
+  font-family: 'Oxanium';
+  background: #355866;
+  background: linear-gradient(
+    0deg,
+    rgba(53, 88, 102, 1) 0%,
+    rgba(87, 111, 199, 1) 62%,
+    rgba(83, 178, 237, 1) 100%
+  );
+}
+
+.taille-titre-text-card {
+  font-size: small;
 }
 
 h1 {
-    font-size: 25px;
+  font-size: 25px;
 }
 
 h2 {
-    font-size: 20px;
+  font-size: 20px;
+}
+
+@media screen and (max-width: 375px) and (max-height: 667px) {
+  .container {
+    display: inline-grid;
+    width: 90%;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding: 10px;
+  }
 }
